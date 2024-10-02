@@ -1,0 +1,72 @@
+<!-- empleado.component.html -->
+<div class="container mt-5">
+    <h1 class="text-center">Gestión de Empleados</h1>
+    <button class="btn btn-primary" (click)="titulo('Crear', null)" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+        Agregar Empleado
+    </button>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cargo</th>
+                <th>Salario</th>
+                <th>Fecha de Contratación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empleado of listaEmpleados">
+                <td>{{ empleado.nombre }}</td>
+                <td>{{ empleado.apellido }}</td>
+                <td>{{ empleado.cargo }}</td>
+                <td>{{ empleado.salario }}</td>
+                <td>{{ empleado.fecha_contratacion }}</td>
+                <td>
+                    <button class="btn btn-success" (click)="titulo('Modificar', empleado.id)" data-bs-toggle="modal" data-bs-target="#modalEmpleado">Editar</button> |
+                    <button class="btn btn-danger" (click)="eliminarEmpleados(empleado.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEmpleado" tabindex="-1" aria-labelledby="modalEmpleadoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEmpleadoLabel">{{ title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formEmpleado" (ngSubmit)="crearEditarEmpleado(nameBotton)">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" formControlName="nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" id="apellido" class="form-control" formControlName="apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cargo" class="form-label">Cargo</label>
+                            <input type="text" id="cargo" class="form-control" formControlName="cargo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="salario" class="form-label">Salario</label>
+                            <input type="number" id="salario" class="form-control" formControlName="salario">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_contratacion" class="form-label">Fecha de Contratación</label>
+                            <input type="text" id="fecha_contratacion" class="form-control" formControlName="fecha_contratacion" placeholder="AÑO-MES-DIA">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="cerrarBoton()" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">{{ nameBotton }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
