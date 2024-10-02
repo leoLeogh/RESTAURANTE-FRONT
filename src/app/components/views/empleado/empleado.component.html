@@ -1,0 +1,107 @@
+<div class="container">
+    <div class="row p-5">
+        <div class="col-12">
+            <div class="row section-banner">
+                <div class="col-6">
+                    <h2>Listado de Empleados</h2>
+                </div>
+                <div class="col-6 btn-agregar">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEmpleado"
+                        (click)="titulo('Crear', null)">
+                        Nuevo Empleado
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Salario</th>
+                        <th scope="col">Fecha de Contratación</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lista of listaEmpleados; index as i">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{lista.nombre}}</td>
+                        <td>{{lista.apellidos}}</td>
+                        <td>{{lista.cargo}}</td>
+                        <td>S/ {{lista.salario}}</td>
+                        <td>{{lista.fecha_contratacion}}</td>
+                        <td>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#modalEmpleado" (click)="titulo('Editar', lista.id)">
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" (click)="eliminarEmpleados(lista.id)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <form [formGroup]="formEmpleado">
+        <div class="modal fade" id="modalEmpleado">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{title}}</h5>
+                        <button type="button" class="btn-close" (click)="cerrarBoton()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="nombre"
+                                        formControlName="nombre" required>
+                                    <label for="nombre">Nombre</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="apellidos"
+                                        formControlName="apellidos" required>
+                                    <label for="apellidos">Apellidos</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="cargo"
+                                        formControlName="cargo" required>
+                                    <label for="cargo">Cargo</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" placeholder="salario"
+                                        formControlName="salario">
+                                    <label for="salario">Salario</label>
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="Fecha"
+                                    formControlName="fecha_contratacion">
+                                <label for="fecha_contratacion">Fecha</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="cerrarBoton()">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" (click)="crearEditarEmpleado(nameBotton)">
+                            {{nameBotton}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
